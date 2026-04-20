@@ -3,67 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyễn Cảnh Bằng - Profile</title>
+    <title>Nguyễn Cảnh Bằng | Profile</title>
     <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #ff007a;
+            --bg: #05070a;
+        }
+
         body {
-            margin: 0; padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #0d1117;
+            margin: 0;
+            background-color: var(--bg);
             color: white;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 100%, 100% 2px, 3px 100%;
         }
-        .container { text-align: center; padding: 20px; }
-        .avatar-container {
-            position: relative; width: 180px; height: 180px; margin: 0 auto 20px;
+
+        /* Hiệu ứng mạch điện mờ ảo phía sau */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.2;
+            z-index: -1;
         }
-        .avatar-container::before {
-            content: ''; position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            position: relative;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        /* Vòng tròn neon quét xung quanh giống mẫu */
+        .avatar-wrapper::after {
+            content: "";
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #ff004c, #3300ff);
-            z-index: -1; filter: blur(15px);
-            animation: pulse 3s infinite;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            animation: scan 4s linear infinite;
         }
+
+        @keyframes scan {
+            0% { clip-path: inset(0 0 100% 0); }
+            50% { clip-path: inset(0 0 0 0); }
+            100% { clip-path: inset(100% 0 0 0); }
+        }
+
         img.avatar {
-            width: 100%; height: 100%;
-            border-radius: 50%; object-fit: cover;
-            border: 3px solid #fff;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.5);
         }
-        h1 { font-size: 2rem; margin: 10px 0; letter-spacing: 2px; text-transform: uppercase; }
-        .description { color: #8b949e; margin-bottom: 30px; }
-        .links { display: flex; flex-direction: column; gap: 15px; width: 300px; }
-        .link-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 12px; border-radius: 8px;
-            text-decoration: none; color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+
+        h1 {
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            margin: 15px 0 5px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
         }
-        .link-card:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px); border-color: #ff004c;
+
+        .sub-text {
+            font-size: 0.8rem;
+            color: var(--primary);
+            opacity: 0.7;
+            margin-bottom: 25px;
+            text-transform: uppercase;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            background: rgba(0, 242, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary);
+            font-weight: bold;
+        }
+
+        /* Hiệu ứng hạt sáng bay (giống mẫu) */
+        .glitch {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="avatar-container">
+    <div class="card">
+        <div class="avatar-wrapper">
             <img src="avatar.jpg" alt="Nguyễn Cảnh Bằng" class="avatar">
         </div>
-        <h1>NGUYỄN CẢNH BẰNG</h1>
-        <p class="description">Welcome to my profile</p>
+        <h1>Nguyễn Cảnh Bằng</h1>
+        <div class="sub-text">Digital Creator & Developer</div>
+        
         <div class="links">
-            <a href="#" class="link-card">Facebook</a>
-            <a href="#" class="link-card">Instagram</a>
-            <a href="#" class="link-card">TikTok</a>
-            <a href="#" class="link-card">Zalo</a>
+            <a href="#" class="btn">FACEBOOK</a>
+            <a href="#" class="btn">INSTAGRAM</a>
+            <a href="#" class="btn">ZALO</a>
+            <a href="#" class="btn">GITHUB</a>
         </div>
     </div>
 </body>
