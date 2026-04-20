@@ -4,74 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nguyễn Cảnh Bằng | Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #00f2ff;
-            --secondary: #ff007a;
-            --bg: #05070a;
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            justify-content: center;
             overflow: hidden;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.1) 0%, transparent 50%),
-                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 100%, 100% 2px, 3px 100%;
+            color: white;
         }
 
-        /* Hiệu ứng mạch điện mờ ảo phía sau */
-        body::before {
-            content: "";
+        /* Hiệu ứng nền có vòng sáng và hạt bụi giống mẫu */
+        .background {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            opacity: 0.2;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000 100%);
             z-index: -1;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
+        .background::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
+            padding: 40px 30px;
+            border-radius: 24px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-            width: 350px;
+            width: 380px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             position: relative;
         }
 
-        .avatar-wrapper {
+        /* Vòng sáng quanh ảnh đại diện */
+        .avatar-box {
             position: relative;
             width: 150px;
             height: 150px;
             margin: 0 auto 20px;
         }
 
-        /* Vòng tròn neon quét xung quanh giống mẫu */
-        .avatar-wrapper::after {
+        .avatar-box::before {
             content: "";
             position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            inset: -8px;
             border-radius: 50%;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-            animation: scan 4s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { clip-path: inset(0 0 100% 0); }
-            50% { clip-path: inset(0 0 0 0); }
-            100% { clip-path: inset(100% 0 0 0); }
+            background: linear-gradient(45deg, #00f2ff, #7000ff, #ff007a);
+            z-index: -1;
+            filter: blur(10px);
+            animation: rotate 4s linear infinite;
         }
 
         img.avatar {
@@ -79,75 +74,87 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.5);
+            border: 2px solid rgba(255, 255, 255, 0.8);
         }
 
         h1 {
-            font-size: 1.5rem;
-            letter-spacing: 4px;
-            margin: 15px 0 5px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.6rem;
             text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
-        .sub-text {
-            font-size: 0.8rem;
-            color: var(--primary);
-            opacity: 0.7;
-            margin-bottom: 25px;
-            text-transform: uppercase;
+        .subtitle {
+            font-size: 0.85rem;
+            color: #00f2ff;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            opacity: 0.8;
         }
 
-        .links {
+        .links-container {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .btn {
-            padding: 12px;
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            border-radius: 5px;
+        .link-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 12px 20px;
+            border-radius: 12px;
             text-decoration: none;
             color: white;
-            font-size: 0.9rem;
+            font-weight: 500;
             transition: 0.3s;
-            background: rgba(0, 242, 255, 0.05);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .btn:hover {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px var(--primary);
-            font-weight: bold;
+        .link-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
         }
 
-        /* Hiệu ứng hạt sáng bay (giống mẫu) */
-        .glitch {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+            border-color: #00f2ff;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="avatar-wrapper">
+    <div class="background"></div>
+    
+    <div class="profile-card">
+        <div class="avatar-box">
             <img src="avatar.jpg" alt="Nguyễn Cảnh Bằng" class="avatar">
         </div>
-        <h1>Nguyễn Cảnh Bằng</h1>
-        <div class="sub-text">Digital Creator & Developer</div>
         
-        <div class="links">
-            <a href="#" class="btn">FACEBOOK</a>
-            <a href="#" class="btn">INSTAGRAM</a>
-            <a href="#" class="btn">ZALO</a>
-            <a href="#" class="btn">GITHUB</a>
+        <h1>Nguyễn Cảnh Bằng</h1>
+        <p class="subtitle">IT STUDENT & CODER</p>
+        
+        <div class="links-container">
+            <a href="https://facebook.com" target="_blank" class="link-item">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+            <a href="https://instagram.com" target="_blank" class="link-item">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://zalo.me" target="_blank" class="link-item">
+                <i class="fa-solid fa-comment"></i> Zalo
+            </a>
+            <a href="https://github.com" target="_blank" class="link-item">
+                <i class="fab fa-github"></i> GitHub
+            </a>
         </div>
     </div>
 </body>
